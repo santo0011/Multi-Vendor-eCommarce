@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { FaEye } from 'react-icons/fa';
 import Ratings from '../Ratings';
 
-
 const ShopProducts = ({ styles, products }) => {
 
     return (
@@ -34,6 +33,5 @@ const ShopProducts = ({ styles, products }) => {
         </div>
     )
 }
-
 
 export default ShopProducts;

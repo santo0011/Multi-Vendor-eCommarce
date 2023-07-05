@@ -90,9 +90,9 @@ class homeControllers {
             const products = await productModel.find({}).sort({ createdAt: -1 });
             const totalProduct = new queryProducts(products, req.query).categoryQuery().searchQuery().ratingQuery().priceQuery().sortByPrice().countProducts()
 
-            const result = new queryProducts(products, req.query).categoryQuery().searchQuery().ratingQuery().priceQuery().sortByPrice().skip();
+            const result = new queryProducts(products, req.query).categoryQuery().searchQuery().ratingQuery().priceQuery().sortByPrice().skip().limit().getProducts();
 
-            responseReturn(res, 200, { products: result.products, totalProduct, parPage });
+            responseReturn(res, 200, { products: result, totalProduct, parPage });
 
         } catch (error) {
             console.log(error.message)

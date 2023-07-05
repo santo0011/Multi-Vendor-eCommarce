@@ -30,7 +30,7 @@ const FeatureProducts = ({ products }) => {
                             <div className='flex justify-start items-center gap-3'>
                                 <span className='text-lg  font-bold'>${p.price}</span>
                                 <div className='flex'>
-                                    <Ratings ratings={4.5} />
+                                    <Ratings ratings={p.rating} />
                                 </div>
                             </div>
                         </div>
