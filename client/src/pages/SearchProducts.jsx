@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { price_range_product, query_products } from '../store/reducers/homeReducer';
 
 
-const CategoryShops = () => {
+const SearchProducts = () => {
 
     let [searchParams, setSearchParams] = useSearchParams()
     const category = searchParams.get('category');
@@ -203,4 +203,4 @@ const CategoryShops = () => {
 }
 
 
-export default CategoryShops;
+export default SearchProducts;

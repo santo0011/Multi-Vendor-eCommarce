@@ -29,6 +29,7 @@ const Shops = () => {
     const [rating, setRatingQ] = useState('');
     const [sortPrice, setSortPrice] = useState('');
 
+
     useEffect(() => {
         dispatch(price_range_product());
     }, [])
@@ -71,7 +72,7 @@ const Shops = () => {
             pageNumber
         }))
     }
-// 
+    // 
     return (
         <div>
             <Headers />
