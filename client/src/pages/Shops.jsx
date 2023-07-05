@@ -17,8 +17,6 @@ import { price_range_product, query_products } from '../store/reducers/homeReduc
 
 const Shops = () => {
 
-    // Santo Biswas
-
     const { products, totalProduct, latest_product, categorys, priceRange, parPage } = useSelector(state => state.home)
 
     const dispatch = useDispatch();
