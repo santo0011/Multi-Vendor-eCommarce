@@ -88,17 +88,17 @@ class homeControllers {
         req.query.parPage = parPage;
         try {
             const products = await productModel.find({}).sort({ createdAt: -1 });
-            const totalProduct = new queryProducts(products, req.query).categoryQuery().searchQuery().ratingQuery().priceQuery().sortByPrice()
+            const totalProduct = new queryProducts(products, req.query).categoryQuery().searchQuery().ratingQuery().priceQuery().sortByPrice().countProducts()
 
-            const result = new queryProducts(products, req.query).categoryQuery().searchQuery().ratingQuery().priceQuery().sortByPrice()
+            const result = new queryProducts(products, req.query).categoryQuery().searchQuery().ratingQuery().priceQuery().sortByPrice().skip();
 
-            responseReturn(res, 200, { result });
+            responseReturn(res, 200, { products: result.products, totalProduct, parPage });
+
         } catch (error) {
             console.log(error.message)
         }
 
     }
 }
-
 
 module.exports = new homeControllers();

@@ -17,8 +17,7 @@ import { price_range_product, query_products } from '../store/reducers/homeReduc
 
 const Shops = () => {
 
-    const { priceRange, categorys, latest_product } = useSelector(state => state.home);
-
+    const { products, totalProduct, latest_product, categorys, priceRange, parPage } = useSelector(state => state.home)
 
     const dispatch = useDispatch();
     const [pageNumber, setPageNumber] = useState(1);
@@ -89,11 +88,10 @@ const Shops = () => {
                             <div className='py-2'>
                                 {
                                     categorys?.map((c, i) => <div className='flex justify-start items-center gap-2 py-1' key={i}>
-                                        <input onChange={(e) => queryCategoey(e, c.name)} type="checkbox" id={c} />
+                                        <input checked={category === c.name ? true : false} onChange={(e) => queryCategoey(e, c.name)} type="checkbox" id={c} />
                                         <label className='text-slate-600 block cursor-pointer' htmlFor={c}>{c.name}</label>
                                     </div>)
                                 }
-
                             </div>
                             <div className='py-2 flex flex-col gap-5'>
                                 <h2 className='text-3xl font-bold mb-3 text-slate-600'>Price</h2>
@@ -171,7 +169,7 @@ const Shops = () => {
                         <div className='w-9/12 md-lg:w-8/12 md:w-full'>
                             <div className='pl-8 md:pl-0'>
                                 <div className='py-4 bg-white mb-10 px-3 rounded-md flex justify-between items-start border'>
-                                    <h2 className='text-lg font-medium text-slate-600'>12 Products</h2>
+                                    <h2 className='text-lg font-medium text-slate-600'>{totalProduct} Products</h2>
                                     <div className='flex justify-center items-center gap-3'>
                                         <select onChange={(e) => setSortPrice(e.target.value)} className='p-1 border outline-0 text-slate-600 font-semibold' name="" id="">
                                             <option value="">Sort By</option>
@@ -189,10 +187,12 @@ const Shops = () => {
                                     </div>
                                 </div>
                                 <div className='pb-8'>
-                                    <ShopProducts styles={styles} />
+                                    <ShopProducts products={products} styles={styles} />
                                 </div>
                                 <div>
-                                    <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={20} perPage={perPage} showItem={Math.floor(20 / 3)} />
+                                    {
+                                        totalProduct > parPage && <Pagination pageNumber={pageNumber} setPageNumber={setPageNumber} totalItem={totalProduct} parPage={parPage} showItem={Math.floor(totalProduct / parPage)} />
+                                    }
                                 </div>
                             </div>
                         </div>
