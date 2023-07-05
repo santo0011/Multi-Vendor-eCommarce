@@ -17,6 +17,8 @@ import { price_range_product, query_products } from '../store/reducers/homeReduc
 
 const Shops = () => {
 
+    // Santo Biswas
+
     const { products, totalProduct, latest_product, categorys, priceRange, parPage } = useSelector(state => state.home)
 
     const dispatch = useDispatch();
@@ -59,7 +61,6 @@ const Shops = () => {
         }))
     }, [state.values[0], state.values[1], category, rating, sortPrice, pageNumber])
 
-
     // resetRating
     const resetRating = () => {
         setRatingQ("")
@@ -72,7 +73,7 @@ const Shops = () => {
             pageNumber
         }))
     }
-
+// 
     return (
         <div>
             <Headers />
