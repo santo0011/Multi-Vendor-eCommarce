@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GrMail } from 'react-icons/gr';
 import { IoIosCall } from 'react-icons/io';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
@@ -13,6 +13,7 @@ const Headers = () => {
     const navigate = useNavigate();
     const { categorys } = useSelector(state => state.home);
     const { userInfo } = useSelector(state => state.auth);
+    const { card_product_count } = useSelector(state => state.card);
 
     const { pathname } = useLocation();
     const [showShidebar, setShowShidebar] = useState(true);
@@ -26,6 +27,16 @@ const Headers = () => {
     const search = () => {
         navigate(`/products/search?category=${category}&&value=${searchValue}`)
     }
+
+
+    // redirect_card_page
+    const redirect_card_page = () => {
+        if (userInfo) {
+            navigate(`/card`)
+        } else {
+            navigate(`/login`)
+        }
+    } 
 
     return (
         <div className='w-full bg-white'>
@@ -56,7 +67,7 @@ const Headers = () => {
                                     </ul>
                                 </div>
                                 {
-                                    userInfo ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm' to='/dashboard'>
+                                    userInfo ? <Link to='/dashboard' className='flex cursor-pointer justify-center items-center gap-2 text-sm'>
                                         <span><FaUser /></span>
                                         <span>{userInfo.name}</span>
                                     </Link> : <Link to='/login' className='flex cursor-pointer justify-center items-center gap-2 text-sm'>
@@ -109,11 +120,14 @@ const Headers = () => {
                                                 {wishlist}
                                             </div>
                                         </div>
-                                        <div className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
+                                        <div onClick={redirect_card_page} className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                                             <span className='text-xl text-orange-500'><AiFillShopping /></span>
-                                            <div className='w-[20px] h-[20px] absolute bg-green-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]'>
-                                                {wishlist}
-                                            </div>
+                                            {
+                                                card_product_count !== 0 && <div className='w-[20px] h-[20px] absolute bg-green-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]'>
+                                                    {card_product_count}
+                                                </div>
+                                            }
+
                                         </div>
                                     </div>
                                 </div>

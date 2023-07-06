@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MdOutlineKeyboardArrowRight } from 'react-icons/md';
 import Headers from '../components/Headers';
 import Footer from '../components/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_card_products } from '../store/reducers/cardReducer';
+
 
 const Card = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { userInfo } = useSelector(state => state.auth);
+
     const card_products = [1, 2]
     const outOfStockProduct = [1, 2]
 
-    const handleOnClick = (e) => {
+    // redirect
+    const redirect = (e) => {
         navigate("/shipping", {
             state: {
                 products: [],
@@ -19,6 +26,12 @@ const Card = () => {
             }
         })
     }
+
+
+    useEffect(() => {
+        dispatch(get_card_products(userInfo.id))
+    }, [])
+
 
     return (
         <div>
@@ -47,10 +60,10 @@ const Card = () => {
                                 <div className='pr-3 md-lg:pr-0'>
                                     <div className='flex flex-col gap-3'>
                                         <div className='bg-white p-4'>
-                                            <h2 className='text-md text-green-500 font-semibold'>Stockkkk Products {card_products.length - outOfStockProduct.length}</h2>
+                                            <h2 className='text-md text-green-500 font-semibold'>Stock Products {card_products.length - outOfStockProduct.length}</h2>
                                         </div>
                                         {
-                                            card_products.map((p, i) => <div className='flex bg-white p-4 flex-col gap-2'>
+                                            card_products.map((p, i) => <div key={i} className='flex bg-white p-4 flex-col gap-2'>
                                                 <div className='flex justify-start items-center'>
                                                     <h2 className='text-md text-slate-600'>Santo</h2>
                                                 </div>
@@ -91,7 +104,7 @@ const Card = () => {
                                                 </div>
                                                 <div className='bg-white p-4'>
                                                     {
-                                                        [1, 2].map((p, i) => <div className='w-full flex flex-wrap'>
+                                                        [1, 2].map((p, i) => <div key={i} className='w-full flex flex-wrap'>
                                                             <div className='flex sm:w-full gap-2 w-7/12'>
                                                                 <div className='flex gap-2 justify-start items-center'>
                                                                     <img className='w-[80px] h-[80px]' src={`http://localhost:3000/images/products/${i + 1}.webp`} alt="product image" />
@@ -145,7 +158,7 @@ const Card = () => {
                                                 <span>Total</span>
                                                 <span className='text-lg text-orange-500'>$855</span>
                                             </div>
-                                            <button onClick={handleOnClick} className='px-5 py-[6px] rounded-sm hover:shadow-orange-500/20 hover:shadow-lg bg-orange-500 text-sm text-white uppercase'>Proceed to checkout 4</button>
+                                            <button onClick={redirect} className='px-5 py-[6px] rounded-sm hover:shadow-orange-500/20 hover:shadow-lg bg-orange-500 text-sm text-white uppercase'>Proceed to checkout 4</button>
                                         </div>
                                     }
                                 </div>

@@ -4,6 +4,7 @@ import 'react-multi-carousel/lib/styles.css';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
+
 const Products = ({ title, products }) => {
 
     const responsive = {
@@ -73,5 +74,6 @@ const Products = ({ title, products }) => {
         </div>
     )
 }
+
 
 export default Products;

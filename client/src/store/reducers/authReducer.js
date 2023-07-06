@@ -17,6 +17,7 @@ export const customer_register = createAsyncThunk(
     }
 )
 
+
 // customer_login
 export const customer_login = createAsyncThunk(
     'auth/customer_login',
