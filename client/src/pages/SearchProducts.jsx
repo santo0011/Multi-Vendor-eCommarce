@@ -17,8 +17,9 @@ import { price_range_product, query_products } from '../store/reducers/homeReduc
 
 const SearchProducts = () => {
 
-    let [searchParams, setSearchParams] = useSearchParams()
+    let [searchParams, setSearchParams] = useSearchParams();
     const category = searchParams.get('category');
+    const searchValue = searchParams.get('value');
 
     const { products, totalProduct, latest_product, priceRange, parPage } = useSelector(state => state.home)
 
@@ -29,6 +30,7 @@ const SearchProducts = () => {
     const [state, setState] = useState({ values: [priceRange.low, priceRange.high] });
     const [rating, setRatingQ] = useState('');
     const [sortPrice, setSortPrice] = useState('');
+
 
     useEffect(() => {
         dispatch(price_range_product());
@@ -49,7 +51,8 @@ const SearchProducts = () => {
             category,
             rating,
             sortPrice,
-            pageNumber
+            pageNumber,
+            searchValue
         }))
     }, [state.values[0], state.values[1], category, rating, sortPrice, pageNumber])
 
@@ -201,6 +204,5 @@ const SearchProducts = () => {
         </div>
     )
 }
-
 
 export default SearchProducts;

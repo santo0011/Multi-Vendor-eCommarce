@@ -86,6 +86,7 @@ class homeControllers {
     query_products = async (req, res) => {
         const parPage = 12;
         req.query.parPage = parPage;
+
         try {
             const products = await productModel.find({}).sort({ createdAt: -1 });
             const totalProduct = new queryProducts(products, req.query).categoryQuery().searchQuery().ratingQuery().priceQuery().sortByPrice().countProducts()

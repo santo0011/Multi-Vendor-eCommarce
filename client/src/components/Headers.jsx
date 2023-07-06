@@ -7,16 +7,16 @@ import { AiOutlineTwitter, AiFillGithub, AiFillHeart, AiFillShopping } from 'rea
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+
 const Headers = () => {
 
     const navigate = useNavigate();
     const { categorys } = useSelector(state => state.home)
 
-
     const { pathname } = useLocation()
     const [showShidebar, setShowShidebar] = useState(true);
     const [categoryShow, setCategoryShow] = useState(true)
-    const user = true
+    const user = false
     const wishlist = 4
 
     const [searchValue, setSearchValue] = useState('')
@@ -58,10 +58,10 @@ const Headers = () => {
                                     user ? <Link className='flex cursor-pointer justify-center items-center gap-2 text-sm' to='/dashboard'>
                                         <span><FaUser /></span>
                                         <span>Sheikh farid</span>
-                                    </Link> : <div className='flex cursor-pointer justify-center items-center gap-2 text-sm'>
+                                    </Link> : <Link to='/login' className='flex cursor-pointer justify-center items-center gap-2 text-sm'>
                                         <span><FaLock /></span>
                                         <span>Login</span>
-                                    </div>
+                                    </Link>
                                 }
                             </div>
                         </div>
