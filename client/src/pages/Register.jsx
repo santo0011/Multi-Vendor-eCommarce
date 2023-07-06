@@ -1,20 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Headers from '../components/Headers';
 import Footer from '../components/Footer';
 import { FaFacebookF } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import FadeLoader from 'react-spinners/FadeLoader';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineGoogle } from 'react-icons/ai';
-import { useDispatch } from 'react-redux';
-import { customer_register } from '../store/reducers/authReducer';
+import { useDispatch, useSelector } from 'react-redux';
+import { customer_register, messageClear } from '../store/reducers/authReducer';
+import toast from 'react-hot-toast';
 
 
 const Register = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { loader, successMessage, errorMessage, userInfo } = useSelector(state => state.auth);
+
     const [state, setState] = useState({
         name: '',
         email: '',
         password: ''
-    })
+    });
 
     const inputHandle = (e) => {
         setState({
@@ -27,8 +32,27 @@ const Register = () => {
         dispatch(customer_register(state))
     }
 
+    useEffect(() => {
+        if (successMessage) {
+            toast.success(successMessage)
+            dispatch(messageClear())
+        }
+        if (errorMessage) {
+            toast.success(errorMessage)
+            dispatch(messageClear())
+        }
+        if (userInfo) {
+            navigate('/login')
+        }
+    }, [successMessage, errorMessage])
+
     return (
         <div>
+            {
+                loader && <div className='w-screen h-screen flex justify-center items-center fixed left-0 top-0 bg-[#38303033] z-[999]'>
+                    <FadeLoader />
+                </div>
+            }
             <Headers />
             <div className='bg-slate-200 mt-4'>
                 <div className='w-full justify-center items-center p-10'>
@@ -70,7 +94,7 @@ const Register = () => {
                             </div>
                         </div>
                         <div className='w-full h-full py-4 pr-4'>
-                            <img className='w-full h-[95%]' src="http://localhost:3000/images/login.jpg" alt="" />
+                            <img className='w-full h-[95%]' src="http://localhost:3000/images/login.jpg" alt="img" />
                         </div>
                     </div>
                 </div>
