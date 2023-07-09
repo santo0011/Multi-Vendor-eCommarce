@@ -104,7 +104,7 @@ export const cardReducer = createSlice({
             state.card_product_count = payload.card_product_count
             state.shipping_fee = payload.shipping_fee
             state.outofstock_products = payload.outOfStockProduct
-            state.buy_product_item = payload.buy_product_ite
+            state.buy_product_item = payload.buy_product_item
         },
         [delete_card_product.fulfilled]: (state, { payload }) => {
             state.successMessage = payload.message

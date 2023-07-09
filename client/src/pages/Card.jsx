@@ -19,10 +19,10 @@ const Card = () => {
     const redirect = (e) => {
         navigate("/shipping", {
             state: {
-                products: [],
-                price: 500,
-                state: 100,
-                items: 4
+                products: card_products,
+                price: price,
+                shipping_fee: shipping_fee,
+                items: buy_product_item
             }
         })
     }
@@ -89,7 +89,7 @@ const Card = () => {
                                 <div className='pr-3 md-lg:pr-0'>
                                     <div className='flex flex-col gap-3'>
                                         <div className='bg-white p-4'>
-                                            <h2 className='text-md text-green-500 font-semibold'>Stock Products {card_products.length - outofstock_products.length}</h2>
+                                            <h2 className='text-md text-green-500 font-semibold'>Stock Products {card_products.length}</h2>
                                         </div>
                                         {
                                             card_products.map((p, i) => <div className='flex bg-white p-4 flex-col gap-2'>
@@ -173,6 +173,7 @@ const Card = () => {
                                         card_products.length > 0 && <div className='bg-white p-3 text-slate-600 flex flex-col gap-3'>
                                             <h2 className='text-xl font-bold'>Order Summary</h2>
                                             <div className='flex justify-between items-center'>
+
                                                 <span>{buy_product_item} Item</span>
                                                 <span>${price}</span>
                                             </div>
