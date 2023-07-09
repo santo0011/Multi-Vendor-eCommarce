@@ -22,7 +22,7 @@ export const get_card_products = createAsyncThunk(
     'card/get_card_products',
     async (userId, { rejectWithValue, fulfillWithValue }) => {
         try {
-            const { data } = await api.get(`/home/product/get-card-product/${userId}`)
+            const { data } = await api.get(`/home/product/get-card-product/${userId}`);
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
@@ -30,6 +30,45 @@ export const get_card_products = createAsyncThunk(
     }
 )
 
+// delete_card_product
+export const delete_card_product = createAsyncThunk(
+    'card/delete_card_product',
+    async (card_id, { rejectWithValue, fulfillWithValue }) => {
+
+        try {
+            const { data } = await api.delete(`/home/product/delete-card-product/${card_id}`)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+// quantity_inc
+export const quantity_inc = createAsyncThunk(
+    'card/quantity_inc',
+    async (card_id, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.put(`/home/product/quantity-inc/${card_id}`)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+// quantity_dec
+export const quantity_dec = createAsyncThunk(
+    'card/quantity_dec',
+    async (card_id, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.put(`/home/product/quantity-dec/${card_id}`)
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
 
 
 export const cardReducer = createSlice({
@@ -58,7 +97,24 @@ export const cardReducer = createSlice({
         [add_to_card.fulfilled]: (state, { payload }) => {
             state.successMessage = payload.message
             state.card_product_count = state.card_product_count + 1
-        }
+        },
+        [get_card_products.fulfilled]: (state, { payload }) => {
+            state.card_products = payload.card_products
+            state.price = payload.price
+            state.card_product_count = payload.card_product_count
+            state.shipping_fee = payload.shipping_fee
+            state.outofstock_products = payload.outOfStockProduct
+            state.buy_product_item = payload.buy_product_ite
+        },
+        [delete_card_product.fulfilled]: (state, { payload }) => {
+            state.successMessage = payload.message
+        },
+        [quantity_inc.fulfilled]: (state, { payload }) => {
+            state.successMessage = payload.message
+        },
+        [quantity_dec.fulfilled]: (state, { payload }) => {
+            state.successMessage = payload.message
+        },
     }
 });
 
