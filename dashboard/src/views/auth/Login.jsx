@@ -59,7 +59,7 @@ const Login = () => {
               }
             </button>
             <div className='flex items-center mb-3 gap-3 justify-center'>
-              <p>Already have an account ? <Link to='/register'>Signup here</Link></p>
+              <p>Don't have an account? <Link to='/register'>Signup here</Link></p>
             </div>
             <div className='w-full flex justify-center items-center mb-3'>
               <div className='w-[45%] bg-slate-700 h-[1px]'></div>
