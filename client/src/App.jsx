@@ -11,6 +11,10 @@ import { useDispatch } from 'react-redux';
 import { get_category } from './store/reducers/homeReducer';
 import CategoryShops from './pages/CategoryShops';
 import SearchProducts from './pages/SearchProducts';
+import Payment from './pages/Payment';
+import ProtectUser from './utils/ProtectUser';
+import Dashboard from './pages/Dashboard';
+import Index from './components/dashboard/Index';
 
 
 const App = () => {
@@ -31,7 +35,15 @@ const App = () => {
         <Route path='/products/search?' element={<SearchProducts />} />
         <Route path='/card' element={<Card />} />
         <Route path='/shipping' element={<Shipping />} />
+        <Route path='/payment' element={<Payment />} />
         <Route path='/product/details/:slug' element={<Details />} />
+
+        <Route path='/dashboard' element={<ProtectUser />}>
+          <Route path='' element={<Dashboard />}>
+            <Route path='' element={<Index />} />
+          </Route>
+        </Route>
+
       </Routes>
     </BrowserRouter>
   )
