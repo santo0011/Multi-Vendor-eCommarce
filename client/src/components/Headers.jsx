@@ -37,7 +37,7 @@ const Headers = () => {
         } else {
             navigate(`/login`)
         }
-    } 
+    }
 
     return (
         <div className='w-full bg-white'>

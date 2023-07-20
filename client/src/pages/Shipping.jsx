@@ -32,6 +32,7 @@ const Shipping = () => {
         });
     }
 
+
     const save = (e) => {
         e.preventDefault();
         const { name, address, phone, post, province, city, area } = state;

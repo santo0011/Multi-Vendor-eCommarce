@@ -11,7 +11,8 @@ import { BiLogInCircle } from 'react-icons/bi';
 
 
 const Dashboard = () => {
-    const [filterShow, setFilterShow] = useState(false)
+    const [filterShow, setFilterShow] = useState(false);
+
     return (
         <div>
             <Headers />
