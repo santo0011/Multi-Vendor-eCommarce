@@ -1,4 +1,5 @@
 const cardModel = require('../../models/cardModel');
+const wishlistModel = require('../../models/wishlistModel');
 const { responseReturn } = require('../../utiles/response');
 const { mongo: { ObjectId } } = require('mongoose');
 
@@ -184,7 +185,52 @@ class cardController {
         } catch (error) {
             console.log(error.message)
         }
+    }
 
+    // add_wishlist
+    add_wishlist = async (req, res) => {
+        const { slug } = req.body;
+        try {
+            const product = await wishlistModel.findOne({ slug });
+            if (product) {
+                responseReturn(res, 401, { error: "Allready added" })
+            } else {
+                await wishlistModel.create(req.body);
+                responseReturn(res, 201, {
+                    message: "Add to wishlist added"
+                })
+            }
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    // get_wishlist
+    get_wishlist = async (req, res) => {
+        const { userId } = req.params;
+        try {
+            const wishlists = await wishlistModel.find({ userId })
+            responseReturn(res, 201, {
+                wishlistCount: wishlists.length,
+                wishlists
+            });
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    // delete_wishlist
+    delete_wishlist = async (req, res) => {
+        const { wishlistId } = req.params;
+        try {
+            await wishlistModel.findByIdAndDelete(wishlistId)
+            responseReturn(res, 200, {
+                message: "Remove success",
+                wishlistId
+            })
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
 }

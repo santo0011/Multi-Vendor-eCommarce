@@ -43,6 +43,7 @@ const decodeToken = (token) => {
     }
 }
 
+
 export const authReducer = createSlice({
     name: 'auth',
     initialState: {
@@ -86,6 +87,7 @@ export const authReducer = createSlice({
         }
     }
 });
+
 
 export const { messageClear } = authReducer.actions;
 export default authReducer.reducer;

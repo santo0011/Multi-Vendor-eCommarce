@@ -2,6 +2,7 @@ import React from 'react';
 import { AiFillStar } from 'react-icons/ai';
 import { CiStar } from 'react-icons/ci';
 
+
 const RatingTemp = ({ rating }) => {
     if (rating === 5) {
         return (

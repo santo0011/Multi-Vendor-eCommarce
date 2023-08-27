@@ -14,7 +14,7 @@ const Shipping = () => {
     const { userInfo } = useSelector(state => state.auth)
     const { state: { products, price, shipping_fee, items } } = useLocation();
 
-    const [res, setRes] = useState(true)
+    const [res, setRes] = useState(false)
     const [state, setState] = useState({
         name: '',
         address: '',
@@ -24,6 +24,7 @@ const Shipping = () => {
         city: "",
         area: ""
     });
+
 
     const inputHandle = (e) => {
         setState({

@@ -13,7 +13,9 @@ const Headers = () => {
     const navigate = useNavigate();
     const { categorys } = useSelector(state => state.home);
     const { userInfo } = useSelector(state => state.auth);
-    const { card_product_count } = useSelector(state => state.card);
+    const { card_product_count, wishlist_count } = useSelector(state => state.card);
+
+    // console.log(wishlist_count)
 
 
     const { pathname } = useLocation();
@@ -29,6 +31,14 @@ const Headers = () => {
         navigate(`/products/search?category=${category}&&value=${searchValue}`)
     }
 
+    // redirect_wishlist
+    const redirect_wishlist = () => {
+        if (userInfo) {
+            navigate(`/dashboard/my-wishlist`)
+        } else {
+            navigate(`/login`)
+        }
+    }
 
     // redirect_card_page
     const redirect_card_page = () => {
@@ -47,7 +57,7 @@ const Headers = () => {
                         <ul className='flex justify-start items-center gap-8'>
                             <li className='flex relative justify-center items-center gap-2 text-sm after:absolute after:h-[18px] after:w-[1px] after:bg-[#afafaf] after:-right-[16px]'>
                                 <span><GrMail /></span>
-                                <span>sheikhfarid@gmail.com</span>
+                                <span>santobiswas0011@gmail.com</span>
                             </li>
                             <span>Multi vendor ecommerce</span>
                         </ul>
@@ -115,11 +125,14 @@ const Headers = () => {
                                 </ul>
                                 <div className='flex md-lg:hidden justify-center items-center gap-5'>
                                     <div className='flex justify-center gap-5'>
-                                        <div className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
+                                        <div onClick={redirect_wishlist} className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                                             <span className='text-xl text-red-500'><AiFillHeart /></span>
-                                            <div className='w-[20px] h-[20px] absolute bg-green-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]'>
-                                                {wishlist}
-                                            </div>
+                                            {
+                                                wishlist_count !== 0 && <div className='w-[20px] h-[20px] absolute bg-green-500 rounded-full text-white flex justify-center items-center -top-[3px] -right-[5px]'>
+                                                    {wishlist_count}
+                                                </div>
+                                            }
+
                                         </div>
                                         <div onClick={redirect_card_page} className='relative flex justify-center items-center cursor-pointer w-[35px] h-[35px] rounded-full bg-[#e2e2e2]'>
                                             <span className='text-xl text-orange-500'><AiFillShopping /></span>
@@ -199,7 +212,7 @@ const Headers = () => {
                         <ul className='flex flex-col justify-start items-start gap-3 text-[#1c1c1c]'>
                             <li className='flex justify-start items-center gap-2  text-sm'>
                                 <span><GrMail /></span>
-                                <span>learnwithproject@gmail.com</span>
+                                <span>biswassanto@gmail.com</span>
                             </li>
                             <span className='text-sm'>Multi vendor ecommerce</span>
                         </ul>
@@ -255,7 +268,7 @@ const Headers = () => {
                                         <span><IoIosCall /></span>
                                     </div>
                                     <div className='flex justify-end flex-col gap-1'>
-                                        <h2 className='text-md font-medium text-slate-700'>+9175840499132</h2>
+                                        <h2 className='text-md font-medium text-slate-700'>+917584049912</h2>
                                         <span className='text-sm'>support 33/45 time</span>
                                     </div>
                                 </div>

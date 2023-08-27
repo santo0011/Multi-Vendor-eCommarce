@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
 
+
+
 const productSchema = new Schema({
     sellerId: {
         type: Schema.ObjectId,
@@ -66,4 +68,5 @@ productSchema.index({
     }
 })
 
-module.exports = model('products', productSchema)
+
+module.exports = model('products', productSchema);

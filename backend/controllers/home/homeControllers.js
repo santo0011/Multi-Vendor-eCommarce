@@ -1,7 +1,10 @@
 const categoryModel = require('../../models/categoryModel');
 const productModel = require('../../models/productModel');
+const reviewModel = require('../../models/reviewModel');
 const { responseReturn } = require('../../utiles/response');
 const queryProducts = require('../../utiles/queryProducts');
+const { mongo: { ObjectId } } = require('mongoose');
+const moment = require('moment')
 
 
 class homeControllers {
@@ -60,6 +63,48 @@ class homeControllers {
         }
     }
 
+    // get_product
+    get_product = async (req, res) => {
+        const { slug } = req.params;
+        try {
+
+            const product = await productModel.findOne({ slug });
+
+            const relatedProducts = await productModel.find({
+                $and: [{
+                    _id: {
+                        $ne: product.id
+                    }
+                }, {
+                    category: {
+                        $eq: product.category
+                    }
+                }]
+            }).limit(20)
+
+            const moreProducts = await productModel.find({
+                $and: [{
+                    _id: {
+                        $ne: product.id
+                    }
+                }, {
+                    sellerId: {
+                        $eq: product.sellerId
+                    }
+                }]
+            }).limit(3)
+
+            responseReturn(res, 200, {
+                product,
+                relatedProducts,
+                moreProducts
+            });
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
     // price_range_product
     price_range_product = async (req, res) => {
         try {
@@ -98,7 +143,123 @@ class homeControllers {
         } catch (error) {
             console.log(error.message)
         }
+    }
 
+    // submit_review
+    submit_review = async (req, res) => {
+        const { name, review, rating, productId } = req.body;
+        try {
+            await reviewModel.create({
+                productId,
+                name,
+                review,
+                rating,
+                date: moment(Date.now()).format('LL')
+            });
+
+            let rat = 0;
+            const reviews = await reviewModel.find({
+                productId
+            });
+            for (let i = 0; i < reviews.length; i++) {
+                rat = rat + reviews[i].rating
+            }
+            let productRating = 0;
+
+            if (review.length !== 0) {
+                productRating = (rat / reviews.length).toFixed(1)
+            }
+            await productModel.findByIdAndUpdate(productId, {
+                rating: productRating
+            });
+
+            responseReturn(res, 201, { message: "Review add success" })
+
+        } catch (error) {
+            console.log(error.message)
+        }
+    }
+
+    // get_reviews
+    get_reviews = async (req, res) => {
+        const { productId } = req.params;
+        let { pageNo } = req.query;
+
+        pageNo = parseInt(pageNo)
+        const limit = 5;
+        const skipPage = limit * (pageNo - 1);
+        try {
+
+            let getRating = await reviewModel.aggregate([{
+                $match: {
+                    productId: {
+                        $eq: new ObjectId(productId)
+                    },
+                    rating: {
+                        $not: {
+                            $size: 0
+                        }
+                    }
+                }
+            },
+            {
+                $unwind: "$rating"
+            }, {
+                $group: {
+                    _id: "$rating",
+                    count: {
+                        $sum: 1
+                    }
+                }
+            }
+            ]);
+
+            let rating_review = [
+                {
+                    rating: 5,
+                    sum: 0
+                },
+                {
+                    rating: 4,
+                    sum: 0
+                },
+                {
+                    rating: 3,
+                    sum: 0
+                },
+                {
+                    rating: 2,
+                    sum: 0
+                },
+                {
+                    rating: 1,
+                    sum: 0
+                }
+            ]
+
+            for (let i = 0; i < rating_review.length; i++) {
+                for (let j = 0; j < getRating.length; j++) {
+                    if (rating_review[i].rating === getRating[j]._id) {
+                        rating_review[i].sum = getRating[j].count
+                        break
+                    }
+                }
+            }
+
+            const getAll = await reviewModel.find({
+                productId
+            });
+            const reviews = await reviewModel.find({ productId }).skip(skipPage).limit(limit).sort({ createdAt: -1 })
+
+            responseReturn(res, 200, {
+                reviews,
+                totalReview: getAll.length,
+                rating_review
+            });
+
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 }
 

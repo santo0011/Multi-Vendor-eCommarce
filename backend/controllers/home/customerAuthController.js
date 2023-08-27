@@ -24,13 +24,15 @@ class customerAuthController {
 
                 await sellerCustomerModel.create({
                     mId: createCustomer.id
-                })
+                });
+
                 const token = await createToken({
                     id: createCustomer.id,
                     name: createCustomer.name,
                     email: createCustomer.email,
                     method: createCustomer.method
                 });
+
                 res.cookie('customerToken', token, {
                     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
                 });

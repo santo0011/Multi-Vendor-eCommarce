@@ -18,6 +18,8 @@ import Index from './components/dashboard/Index';
 import Orders from './components/dashboard/Orders';
 import Wishlist from './components/dashboard/Wishlist';
 import ChangePassword from './components/dashboard/ChangePassword';
+import Order from './components/dashboard/Order';
+import Chat from './components/dashboard/Chat';
 
 
 const App = () => {
@@ -26,6 +28,7 @@ const App = () => {
   useEffect(() => {
     dispatch(get_category())
   }, []);
+
 
   return (
     <BrowserRouter>
@@ -41,12 +44,16 @@ const App = () => {
         <Route path='/payment' element={<Payment />} />
         <Route path='/product/details/:slug' element={<Details />} />
 
+
         <Route path='/dashboard' element={<ProtectUser />}>
           <Route path='' element={<Dashboard />}>
             <Route path='' element={<Index />} />
             <Route path='my-orders' element={<Orders />} />
             <Route path='my-wishlist' element={<Wishlist />} />
+            <Route path='order/details/:orderId' element={<Order />} />
             <Route path='chage-password' element={<ChangePassword />} />
+            <Route path='chat' element={<Chat />} />
+            <Route path='chat/:sellerId' element={<Chat />} />
           </Route>
         </Route>
 

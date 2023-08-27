@@ -1,11 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Sidebar from './Sidebar';
+import { useSelector } from 'react-redux';
+import { socket } from '../utils/utils';
 
 
 const MainLayout = () => {
-  const [showSidebar, setShowSidebar] = useState(false)
+
+  const [showSidebar, setShowSidebar] = useState(false);
+  const { userInfo } = useSelector(state => state.auth)
+
+
+  useEffect(() => {
+    if (userInfo && userInfo.role === 'seller') {
+      socket.emit('add_seller', userInfo._id, userInfo)
+    } else {
+      socket.emit('add_admin', userInfo)
+    }
+  }, [userInfo])
+
 
   return (
     <div className='bg-[#161d31] w-full min-h-screen'>
