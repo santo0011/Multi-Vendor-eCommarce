@@ -7,11 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import io from 'socket.io-client';
 import { add_friend, messageClear, send_message, updateMessage } from '../../store/reducers/chatReducer';
 import toast from 'react-hot-toast';
-
+import { useRef } from 'react';
 
 const socket = io('http://localhost:5000');
 
 const Chat = () => {
+
+    const scrollRef = useRef();
 
     const dispatch = useDispatch()
     const { sellerId } = useParams()
@@ -76,6 +78,11 @@ const Chat = () => {
     }, [receverMessage])
 
 
+    useEffect(() => {
+        scrollRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, [fd_messages])
+
+
     return (
         <div className='bg-white p-3 rounded-md'>
             <div className='w-full flex'>
@@ -113,11 +120,12 @@ const Chat = () => {
                             <div className='h-[400px] w-full bg-slate-100 p-3 rounded-md'>
 
                                 <div className='w-full h-full overflow-y-auto flex flex-col gap-3'>
+
                                     {
                                         fd_messages?.map((m, i) => {
                                             if (currentFd?.fdId !== m.receverId) {
                                                 return (
-                                                    <div className='w-full flex gap-2 justify-start items-center text-[14px]'>
+                                                    <div key={i} ref={scrollRef} className='w-full flex gap-2 justify-start items-center text-[14px]'>
                                                         <img className='w-[30px] h-[30px] ' src="http://localhost:3000/images/user.png" alt="" />
                                                         <div className='p-2 bg-purple-500 text-white rounded-md'>
                                                             <span>{m.message}</span>
@@ -126,7 +134,7 @@ const Chat = () => {
                                                 )
                                             } else {
                                                 return (
-                                                    <div className='w-full flex gap-2 justify-end items-center text-[14px]'>
+                                                    <div key={i} ref={scrollRef} className='w-full flex gap-2 justify-end items-center text-[14px]'>
                                                         <img className='w-[30px] h-[30px] ' src="http://localhost:3000/images/user.png" alt="" />
                                                         <div className='p-2 bg-cyan-500 text-white rounded-md'>
                                                             <span>{m.message}</span>

@@ -77,13 +77,19 @@ io.on('connection', (soc) => {
 
     soc.on('add_user', (customerId, userInfo) => {
         addCustomer(customerId, soc.id, userInfo)
+        io.emit('activeSeller', allSeller)
+        io.emit('activeCustomer', allCustomer)
         // console.log("allCustomer", allCustomer)
-    })
+    });
+
 
     soc.on('add_seller', (sellerId, userInfo) => {
         addSeller(sellerId, soc.id, userInfo)
+        io.emit('activeSeller', allSeller)
+        io.emit('activeCustomer', allCustomer)
         // console.log(sellerId, userInfo)
-    })
+    });
+
 
     // send_seller_message
     soc.on('send_seller_message', (msg) => {
