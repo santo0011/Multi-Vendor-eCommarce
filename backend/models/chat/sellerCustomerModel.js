@@ -1,5 +1,6 @@
 const { Schema, model } = require("mongoose");
 
+
 const sellerCustomerSchema = new Schema({
     mId: {
         type: String,

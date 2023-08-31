@@ -23,7 +23,6 @@ export const send_message = createAsyncThunk(
     async (info, { fulfillWithValue, rejectWithValue }) => {
         try {
             const { data } = await api.post('/chat/customer/send-message-to-seller', info)
-
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)

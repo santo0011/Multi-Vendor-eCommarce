@@ -43,6 +43,62 @@ export const send_message = createAsyncThunk(
     }
 )
 
+// get_sellers
+export const get_sellers = createAsyncThunk(
+    'chat/get_sellers',
+    async (_, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get(`/chat/admin/get-sellers`, { withCredentials: true })
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+
+// send_message_seller_admin
+export const send_message_seller_admin = createAsyncThunk(
+    'chat/send_message_seller_admin',
+    async (info, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.post(`/chat/message-send-seller-admin`, info, { withCredentials: true });
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+// get_admin_message
+export const get_admin_message = createAsyncThunk(
+    'chat/get_admin_message',
+    async (receverId, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get(`/chat/get-admin-messages/${receverId}`, { withCredentials: true });
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
+// get_seller_message
+export const get_seller_message = createAsyncThunk(
+    'chat/get_seller_message',
+    async (_, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get(`/chat/get-seller-messages`, { withCredentials: true });
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
 
 export const chatReducer = createSlice({
     name: 'seller',
@@ -52,7 +108,12 @@ export const chatReducer = createSlice({
         customers: [],
         messages: [],
         currentCustomer: {},
-        activeCustomer: []
+        activeCustomer: [],
+        activeSellers: [],
+        sellers: [],
+        seller_admin_message: [],
+        currentSeller: {},
+        seller_admin_message: []
     },
     reducers: {
         messageClear: (state, _) => {
@@ -64,7 +125,17 @@ export const chatReducer = createSlice({
         },
         updateCustomer: (state, { payload }) => {
             state.activeCustomer = payload
+        },
+        updateSellers: (state, { payload }) => {
+            state.activeSellers = payload
+        },
+        updateAdminMessage: (state, { payload }) => {
+            state.seller_admin_message = [...state.seller_admin_message, payload]
+        },
+        updateSellerMessage: (state, { payload }) => {
+            state.seller_admin_message = [...state.seller_admin_message, payload]
         }
+
     },
     extraReducers: {
         [get_customers.fulfilled]: (state, { payload }) => {
@@ -77,22 +148,34 @@ export const chatReducer = createSlice({
         [send_message.fulfilled]: (state, { payload }) => {
             let tempFriends = state.customers;
             let index = tempFriends.findIndex(f => f.fbId === payload.message.receverId);
-
             while (index > 0) {
                 let temp = tempFriends[index]
                 tempFriends[index] = tempFriends[index - 1]
                 tempFriends[index - 1] = temp
                 index--
             }
-
             state.customers = tempFriends
             state.messages = [...state.messages, payload.message]
             state.successMessage = "Message send success"
+        },
+        [get_sellers.fulfilled]: (state, { payload }) => {
+            state.sellers = payload.sellers
+        },
+        [send_message_seller_admin.fulfilled]: (state, { payload }) => {
+            state.seller_admin_message = [...state.seller_admin_message, payload.message]
+            state.successMessage = "Message send success"
+        },
+        [get_admin_message.fulfilled]: (state, { payload }) => {
+            state.seller_admin_message = payload.messages
+            state.currentSeller = payload.currentSeller
+        },
+        [get_seller_message.fulfilled]: (state, { payload }) => {
+            state.seller_admin_message = payload.messages
         }
     }
 
 });
 
 
-export const { messageClear, updateMessage, updateCustomer } = chatReducer.actions;
+export const { messageClear, updateMessage, updateCustomer, updateAdminMessage, updateSellerMessage, updateSellers } = chatReducer.actions;
 export default chatReducer.reducer;
