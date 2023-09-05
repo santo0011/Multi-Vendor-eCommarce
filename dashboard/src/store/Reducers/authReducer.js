@@ -34,6 +34,26 @@ export const seller_login = createAsyncThunk(
 )
 
 
+// logout
+export const logout = createAsyncThunk(
+    'auth/logout',
+    async ({ navigate, role }, { rejectWithValue, fulfillWithValue }) => {
+        try {
+            const { data } = await api.get('/logout', { withCredentials: true })
+            localStorage.removeItem('accessToken')
+            if (role === 'admin') {
+                navigate('/admin/login')
+            } else {
+                navigate('/login')
+            }
+            return fulfillWithValue(data)
+        } catch (error) {
+            return rejectWithValue(error.response.data)
+        }
+    }
+)
+
+
 // seller_register
 export const seller_register = createAsyncThunk(
     'auth/seller_register',

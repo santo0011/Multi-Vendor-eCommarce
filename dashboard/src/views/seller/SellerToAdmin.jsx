@@ -8,7 +8,7 @@ const SellerToAdmin = () => {
     const [text, setText] = useState('')
     const dispatch = useDispatch()
 
-    const { seller_admin_message, successMessage } = useSelector(state => state.chat)
+    const { seller_admin_message, successMessage, activeAdmin } = useSelector(state => state.chat)
     const { userInfo } = useSelector(state => state.auth)
 
 
@@ -57,7 +57,10 @@ const SellerToAdmin = () => {
                             <div className='flex justify-start items-center gap-3'>
                                 <div className='relative'>
                                     <img className='w-[42px] h-[42px] border-green-500 border-2 max-w-[42px] p-[2px] rounded-full' src="http://localhost:3000/images/admin.jpg" alt="" />
-                                    <div className='w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0'></div>
+                                    {
+                                        activeAdmin &&
+                                        <div className='w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0'></div>
+                                    }
                                 </div>
                                 <h2 className='text-base text-white font-semibold'>Support</h2>
                             </div>

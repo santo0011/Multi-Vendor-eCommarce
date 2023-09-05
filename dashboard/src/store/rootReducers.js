@@ -1,3 +1,4 @@
+import OrderReducer from "./Reducers/OrderReducer";
 import authReducer from "./Reducers/authReducer";
 import categoryReducer from "./Reducers/categoryReducer";
 import chatReducer from "./Reducers/chatReducer";
@@ -10,7 +11,8 @@ const rootReducer = {
       category: categoryReducer,
       product: productReducer,
       seller: sellerReducer,
-      chat:chatReducer
+      chat: chatReducer,
+      order: OrderReducer
 }
 
 

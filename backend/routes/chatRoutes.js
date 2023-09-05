@@ -17,5 +17,4 @@ router.get('/chat/get-admin-messages/:receverId', authMiddleware, chatController
 router.get('/chat/get-seller-messages', authMiddleware, chatController.get_seller_messages)
 
 
-
 module.exports = router;

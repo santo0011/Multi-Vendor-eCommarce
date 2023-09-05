@@ -72,6 +72,16 @@ const remove = (socketId) => {
 }
 
 
+let admin = {}
+
+// removeAdmin
+const removeAdmin = (socketId) => {
+    if (admin.socketId === socketId) {
+        admin = {}
+    }
+}
+
+
 io.on('connection', (soc) => {
     console.log("Socket is connected")
 
@@ -87,7 +97,7 @@ io.on('connection', (soc) => {
         addSeller(sellerId, soc.id, userInfo)
         io.emit('activeSeller', allSeller)
         io.emit('activeCustomer', allCustomer)
-        // console.log(sellerId, userInfo)
+        io.emit('activeAdmin', { status: true })
     });
 
 
@@ -95,7 +105,8 @@ io.on('connection', (soc) => {
         delete adminInfo.email
         admin = adminInfo
         admin.socketId = soc.id
-        io.emit('activeSeller',allSeller)
+        io.emit('activeSeller', allSeller)
+        io.emit('activeAdmin', { status: true })
     });
 
 
@@ -139,6 +150,8 @@ io.on('connection', (soc) => {
     soc.on('disconnect', () => {
         console.log("user dsiconnect")
         remove(soc.id)
+        removeAdmin(soc.id)
+        io.emit('activeAdmin', { status: false })
         io.emit('activeSeller', allSeller)
         io.emit('activeCustomer', allCustomer)
     })
