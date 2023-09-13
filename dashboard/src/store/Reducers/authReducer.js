@@ -95,6 +95,7 @@ export const profile_image_upload = createAsyncThunk(
     }
 )
 
+
 // profile_info_add
 export const profile_info_add = createAsyncThunk(
     'auth/profile_info_add',

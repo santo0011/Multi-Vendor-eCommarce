@@ -8,6 +8,10 @@ router.get('/customer/get-dashboard-data/:userId', orderController.get_customer_
 router.get('/customer/get-orders/:customerId/:status', orderController.get_orders);
 router.get('/customer/get-order/:orderId', orderController.get_order);
 
+router.post('/order/create-payment', orderController.create_payment)
+
+router.get('/order/confirm/:orderId', orderController.order_confirm)
+
 
 // for admin router
 router.get('/admin/orders', orderController.get_admin_orders);
