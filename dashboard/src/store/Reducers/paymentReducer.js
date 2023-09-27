@@ -42,22 +42,19 @@ export const get_payment_request = createAsyncThunk(
     }
 )
 
+
 // confirm_payment_request
 export const confirm_payment_request = createAsyncThunk(
     'payment/confirm_payment_request',
     async (paymentId, { rejectWithValue, fulfillWithValue }) => {
         try {
             const { data } = await api.post(`/payment/request-confirm`, { paymentId }, { withCredentials: true });
-
-            console.log(data)
-
-            // return fulfillWithValue(data)
+            return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)
         }
     }
 )
-
 
 
 export const paymentReducer = createSlice({
@@ -98,9 +95,25 @@ export const paymentReducer = createSlice({
         [send_withdrowal_request.fulfilled]: (state, { payload }) => {
             state.loader = false
             state.successMessage = payload.message
+            state.pendingWithdrows = [...state.pendingWithdrows, payload.withdrowal]
+            state.availableAmount = state.availableAmount - payload.withdrowal.amount
+            state.pendingAmount = payload.withdrowal.amount
         },
         [get_payment_request.fulfilled]: (state, { payload }) => {
             state.pendingWithdrows = payload.withdrowalRequest
+        },
+        [confirm_payment_request.pending]: (state, _) => {
+            state.loader = true
+        },
+        [confirm_payment_request.rejected]: (state, { payload }) => {
+            state.loader = false
+            state.errorMessage = payload.error
+        },
+        [confirm_payment_request.fulfilled]: (state, { payload }) => {
+            const temp = state.pendingWithdrows.filter(r => r._id !== payload.payment._id)
+            state.loader = false
+            state.successMessage = payload.message
+            state.pendingWithdrows = temp
         }
     }
 

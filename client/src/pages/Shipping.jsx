@@ -132,7 +132,7 @@ const Shipping = () => {
                                                 <span className='text-slate-600 text-sm'>{state.address} {state.province} {state.city} {state.area}</span>
                                                 <span onClick={() => setRes(false)} className='text-indigo-500 cursor-pointer'> change</span>
                                             </p>
-                                            <p className='text-slate-600 text-sm'>Email to sheikhfarid@gmail.com</p>
+                                            <p className='text-slate-600 text-sm'>Email to abcd@gmail.com</p>
                                         </div>
                                     }
                                 </div>

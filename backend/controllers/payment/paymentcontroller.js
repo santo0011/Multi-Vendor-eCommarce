@@ -172,6 +172,7 @@ class paymentController {
         }
     }
 
+
     // get_payment_request
     get_payment_request = async (req, res) => {
         try {
@@ -200,7 +201,7 @@ class paymentController {
             responseReturn(res, 200, { payment, message: "Request confirm success" })
 
         } catch (error) {
-            responseReturn(res, 500, { message: error })
+            responseReturn(res, 500, { error: 'Internal server error' })
         }
     }
 }

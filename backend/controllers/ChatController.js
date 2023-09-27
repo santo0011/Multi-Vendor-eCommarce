@@ -168,6 +168,7 @@ class chatController {
     // get_customers
     get_customers = async (req, res) => {
         const { sellerId } = req.params;
+
         try {
             const data = await sellerCustomerModel.findOne({ mId: sellerId });
             responseReturn(res, 200, {

@@ -17,7 +17,7 @@ const outerElementType = forwardRef((props, ref) => (
 
 
 const Payments = () => {
-    const [amount, setAmount] = useState();
+    const [amount, setAmount] = useState('');
 
 
     const dispatch = useDispatch();
@@ -53,11 +53,13 @@ const Payments = () => {
         e.preventDefault();
         if (availableAmount - amount > 10) {
             dispatch(send_withdrowal_request({ amount, sellerId: userInfo._id }))
-            setAmount(0)
+            setAmount('')
         } else {
             toast.error('Insufficient balance')
+            setAmount('')
         }
     }
+
 
     const Row = ({ index, style }) => {
         return (
