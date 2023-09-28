@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { admin_login, messageClear } from '../../store/Reducers/authReducer';
 import toast from 'react-hot-toast';
-import { base_url } from '../../../../client/src/api/api';
+import { dashboard_url } from '../../api/api';
 
 
 const AdminLogin = () => {
@@ -49,7 +49,7 @@ const AdminLogin = () => {
                 <div className='bg-[#283046] p-4 rounded-md'>
                     <div className='h-[70px] flex justify-center items-center'>
                         <div className='w-[180px] h-[50px]'>
-                            <img className='w-full h-full' src={`${base_url}/images/logo.png`} alt="image" />
+                            <img className='w-full h-full' src={`${dashboard_url}/images/logo.png`} alt="image" />
                         </div>
                     </div>
                     <form onSubmit={submit}>

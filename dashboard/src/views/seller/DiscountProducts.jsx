@@ -3,7 +3,7 @@ import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Pagination from '../Pagination';
 import Search from '../components/Search';
-import { base_url } from '../../../../client/src/api/api';
+import { dashboard_url } from '../../api/api';
 
 const DiscountProducts = () => {
     const [currentPage, setCurrentPage] = useState(1)
@@ -33,7 +33,7 @@ const DiscountProducts = () => {
                                 [1, 2, 3, 4, 5].map((d, i) => <tr key={i}>
                                     <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>{d}</td>
                                     <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
-                                        <img className='w-[45px] h-[45px]' src={`${base_url}/images/category/${d}.jpg`} alt="" />
+                                        <img className='w-[45px] h-[45px]' src={`${dashboard_url}/images/category/${d}.jpg`} alt="" />
                                     </td>
                                     <td scope='row' className='py-1 px-4 font-medium whitespace-nowrap'>
                                         <span>Men's Premium soft..</span>
