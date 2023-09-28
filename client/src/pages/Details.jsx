@@ -164,7 +164,8 @@ const Details = () => {
     return (
         <div>
             <Headers />
-            <div className='bg-[url("http://localhost:3000/images/banner/order.jpg")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
+            <div className='bg-[url("https://multivendorecommarceclient.netlify.app/images/banner/order.jpg")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
+
                 <div className='absolute left-0 top-0 w-full h-full bg-[#2422228a]'>
                     <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto'>
                         <div className='flex flex-col justify-center gap-1 items-center h-full w-full text-white'>
@@ -280,7 +281,7 @@ const Details = () => {
                                 </div>
                             </div>
                             <div className='flex gap-3'>
-                            {
+                                {
                                     product.stock ? <button onClick={buy} className='px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-emerald-500/40 bg-emerald-500 text-white'>Buy Now</button> : ""
                                 }
                                 <Link to={`/dashboard/chat/${product.sellerId}`} className='px-8 py-3 h-[50px] cursor-pointer hover:shadow-lg hover:shadow-lime-500/40 bg-lime-500 text-white block'>Chat Seller</Link>

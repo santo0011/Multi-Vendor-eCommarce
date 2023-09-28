@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { delete_card_product, get_card_products, messageClear, quantity_dec, quantity_inc } from '../store/reducers/cardReducer';
 import toast from 'react-hot-toast';
+import { base_url } from '../api/api';
 
 
 const Card = () => {
@@ -66,7 +67,7 @@ const Card = () => {
         <div>
             <Headers />
 
-            <section className='bg-[url("http://localhost:3000/images/banner/card.jpg")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
+            <section className='bg-[url("https://multivendorecommarceclient.netlify.app/images/banner/card.jpg")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
                 <div className='absolute left-0 top-0 w-full h-full bg-[#2422228a]'>
                     <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto'>
                         <div className='flex flex-col justify-center gap-1 items-center h-full w-full text-white'>

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { customer_login, messageClear } from '../store/reducers/authReducer';
 import FadeLoader from 'react-spinners/FadeLoader';
 import toast from 'react-hot-toast';
+import { base_url } from '../api/api';
 
 
 const Login = () => {
@@ -90,7 +91,7 @@ const Login = () => {
                             </div>
                         </div>
                         <div className='w-full h-full py-4 pr-4'>
-                            <img className='w-full h-[95%]' src="http://localhost:3000/images/login.jpg" alt="" />
+                            <img className='w-full h-[95%]' src={`${base_url}/images/login.jpg`} alt="img" />
                         </div>
                     </div>
                 </div>

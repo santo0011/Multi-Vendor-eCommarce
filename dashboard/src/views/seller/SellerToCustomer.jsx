@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { socket } from '../../utils/utils';
 import toast from 'react-hot-toast';
+import { base_url } from '../../../../client/src/api/api';
 
 
 const SellerToCustomer = () => {
@@ -96,7 +97,7 @@ const SellerToCustomer = () => {
                                     return <>
                                         <Link to={`/seller/dashboard/chat-customer/${c.fdId}`} key={i} className={`h-[60px] flex justify-start gap-2 items-center text-white px-2 py-2 rounded-sm cursor-pointer ${customerId === c.fdId ? 'bg-slate-700' : ''}`}>
                                             <div className='relative'>
-                                                <img className='w-[38px] h-[38px] border-white border-2 max-w-[38px] p-[2px] rounded-full' src="http://localhost:3000/images/admin.jpg" alt="" />
+                                                <img className='w-[38px] h-[38px] border-white border-2 max-w-[38px] p-[2px] rounded-full' src={`${base_url}/images/admin.jpg`} alt="" />
                                                 {
                                                     activeCustomer.some((a => a.customerId === c.fdId)) &&
                                                     <div className='w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0'></div>
@@ -119,7 +120,7 @@ const SellerToCustomer = () => {
                             {
                                 customerId && <div className='flex justify-start items-center gap-3'>
                                     <div className='relative'>
-                                        <img className='w-[42px] h-[42px] border-green-500 border-2 max-w-[42px] p-[2px] rounded-full' src="http://localhost:3000/images/admin.jpg" alt="" />
+                                        <img className='w-[42px] h-[42px] border-green-500 border-2 max-w-[42px] p-[2px] rounded-full' src={`${base_url}/images/admin.jpg`} alt="" />
                                         {
                                             activeCustomer.some((a => a.customerId === currentCustomer._id)) &&
                                             <div className='w-[10px] h-[10px] bg-green-500 rounded-full absolute right-0 bottom-0'></div>
@@ -141,7 +142,7 @@ const SellerToCustomer = () => {
                                                 <div key={i} ref={scrollRef} className='w-full flex justify-start items-center'>
                                                     <div className='flex justify-start items-start gap-2 md:px-3 py-2 max-w-full lg:max-w-[85%]'>
                                                         <div>
-                                                            <img className='w-[38px] h-[38px] border-2 border-white rounded-full max-w-[38px] p-[3px]' src="http://localhost:3000/images/admin.jpg" alt="" />
+                                                            <img className='w-[38px] h-[38px] border-2 border-white rounded-full max-w-[38px] p-[3px]' src={`${base_url}/images/admin.jpg`} alt="" />
                                                         </div>
                                                         <div className='flex justify-center items-start flex-col w-full bg-orange-500 shadow-lg shadow-orange-500/50 text-white py-1 px-2 rounded-sm'>
                                                             <span>{m.message}</span>
@@ -158,7 +159,7 @@ const SellerToCustomer = () => {
                                                             <span>{m.message}</span>
                                                         </div>
                                                         <div>
-                                                            <img className='w-[38px] h-[38px] border-2 border-white rounded-full max-w-[38px] p-[3px]' src="http://localhost:3000/images/admin.jpg" alt="" />
+                                                            <img className='w-[38px] h-[38px] border-2 border-white rounded-full max-w-[38px] p-[3px]' src={`${base_url}/images/admin.jpg`} alt="" />
                                                         </div>
                                                     </div>
                                                 </div>

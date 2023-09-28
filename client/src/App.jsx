@@ -7,7 +7,6 @@ import Shops from './pages/Shops';
 import Card from './pages/Card';
 import Details from './pages/Details';
 import Shipping from './pages/Shipping';
-import { useDispatch } from 'react-redux';
 import { get_category } from './store/reducers/homeReducer';
 import CategoryShops from './pages/CategoryShops';
 import SearchProducts from './pages/SearchProducts';
@@ -21,10 +20,19 @@ import ChangePassword from './components/dashboard/ChangePassword';
 import Order from './components/dashboard/Order';
 import Chat from './components/dashboard/Chat';
 import ConfirmOrder from './pages/ConfirmOrder';
+import { useDispatch, useSelector } from 'react-redux';
+import { get_card_products, get_wishlist_products } from './store/reducers/cardReducer';
 
 
 const App = () => {
   const dispatch = useDispatch();
+  const { userInfo } = useSelector(state => state.auth);
+
+
+  useEffect(() => {
+    dispatch(get_card_products(userInfo.id))
+    dispatch(get_wishlist_products(userInfo.id))
+  }, [userInfo])
 
   useEffect(() => {
     dispatch(get_category())
