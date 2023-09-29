@@ -12,7 +12,7 @@ const socket = require("socket.io");
 const server = http.createServer(app);
 
 app.use(cors({
-    origin: ['http://localhost:3000'],
+    origin: ['https://multivendorecommarceclient.netlify.app', 'https://multivendorecommarcedashboard.netlify.app', 'http://localhost:3000'],
     credentials: true
 }));
 
@@ -156,7 +156,7 @@ io.on('connection', (soc) => {
         io.emit('activeCustomer', allCustomer)
     })
 
-})
+});
 
 
 app.use(bodyParser.json());
@@ -180,6 +180,10 @@ app.use('/api', require('./routes/dashboard/sellerRoutes'));
 app.use('/api', require('./routes/dashboard/dashboardRouter'));
 
 
-const port = process.env.PORT;
+app.get('/home', function (req, res) {
+    res.send('Hello, I am home page')
+})
+
+const port = process.env.PORT || 5000;
 dbConnect();
 server.listen(port, () => console.log(`Server is running on port ${port}!`));

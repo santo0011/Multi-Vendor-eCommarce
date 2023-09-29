@@ -20,11 +20,11 @@ export const get_seller_dashboard_index_data = createAsyncThunk(
 export const get_admin_dashboard_index_data = createAsyncThunk(
     'dashboardIndex/get_admin_dashboard_index_data',
     async (_, { rejectWithValue, fulfillWithValue }) => {
+ 
+         console.log("asdfsdfasdfsd")
+
         try {
             const { data } = await api.get(`/admin/get-dashboard-index-data`, { withCredentials: true });
-
-            console.log('data', data)
-
             return fulfillWithValue(data)
         } catch (error) {
             return rejectWithValue(error.response.data)

@@ -29,8 +29,8 @@ class paymentController {
                 // Generate an account link to connect the Stripe account
                 const accountLink = await stripe.accountLinks.create({
                     account: account.id,
-                    refresh_url: 'http://localhost:3000/',
-                    return_url: `http://localhost:3000/success?activeCode=${uid}`,
+                    refresh_url: 'https://multivendorecommarcedashboard.netlify.app/refresh',
+                    return_url: `https://multivendorecommarcedashboard.netlify.app/success?activeCode=${uid}`,
                     type: 'account_onboarding'
                 });
 
@@ -42,7 +42,6 @@ class paymentController {
 
                 responseReturn(res, 201, { url: accountLink.url })
 
-
             } else {
                 // Create a new Stripe Express account
                 const account = await stripe.accounts.create({ type: 'express' });
@@ -50,8 +49,8 @@ class paymentController {
                 // Generate an account link to connect the Stripe account
                 const accountLink = await stripe.accountLinks.create({
                     account: account.id,
-                    refresh_url: 'http://localhost:3000/refresh',
-                    return_url: `http://localhost:3000/success?activeCode=${uid}`,
+                    refresh_url: 'https://multivendorecommarcedashboard.netlify.app/refresh',
+                    return_url: `https://multivendorecommarcedashboard.netlify.app/success?activeCode=${uid}`,
                     type: 'account_onboarding'
                 });
 
