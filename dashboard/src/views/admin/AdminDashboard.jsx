@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import seller from '../../assets/seller.png';
 
 
-
 const AdminDashboard = () => {
 
   const { userInfo } = useSelector(state => state.auth)

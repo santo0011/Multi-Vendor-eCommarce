@@ -1,6 +1,8 @@
 import React from 'react';
 import { FaList } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
+import { dashboard_url } from '../api/api';
+
 
 const Header = ({ showSidebar, setShowSidebar }) => {
     const { userInfo } = useSelector(state => state.auth);
@@ -22,7 +24,7 @@ const Header = ({ showSidebar, setShowSidebar }) => {
                                 <span className='text-[14px] w-full font-normal'>{userInfo.role}</span>
                             </div>
                             {
-                                userInfo.role === 'admin' ? <img className='w-[45px] h-[45px] rounded-full overflow-hidden' src="http://localhost:3001/images/admin.jpg" alt="" /> : <img className='w-[45px] h-[45px] rounded-full overflow-hidden' src="http://localhost:3001/images/seller.png" alt="" />
+                                userInfo.role === 'admin' ? <img className='w-[45px] h-[45px] rounded-full overflow-hidden' src={`${dashboard_url}/images/admin.jpg`} alt="" /> : <img className='w-[45px] h-[45px] rounded-full overflow-hidden' src={`${dashboard_url}/images/seller.png`} alt="" />
                             }
                         </div>
                     </div>

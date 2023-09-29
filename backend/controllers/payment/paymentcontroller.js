@@ -29,8 +29,8 @@ class paymentController {
                 // Generate an account link to connect the Stripe account
                 const accountLink = await stripe.accountLinks.create({
                     account: account.id,
-                    refresh_url: 'http://localhost:3001/refresh',
-                    return_url: `http://localhost:3001/success?activeCode=${uid}`,
+                    refresh_url: 'http://localhost:3000/',
+                    return_url: `http://localhost:3000/success?activeCode=${uid}`,
                     type: 'account_onboarding'
                 });
 
@@ -50,8 +50,8 @@ class paymentController {
                 // Generate an account link to connect the Stripe account
                 const accountLink = await stripe.accountLinks.create({
                     account: account.id,
-                    refresh_url: 'http://localhost:3001/refresh',
-                    return_url: `http://localhost:3001/success?activeCode=${uid}`,
+                    refresh_url: 'http://localhost:3000/refresh',
+                    return_url: `http://localhost:3000/success?activeCode=${uid}`,
                     type: 'account_onboarding'
                 });
 

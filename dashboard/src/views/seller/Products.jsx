@@ -24,6 +24,8 @@ const Products = () => {
         dispatch(get_products(obj))
     }, [searchValue, currentPage, parPage])
 
+    console.log('products', products)
+
     return (
         <div className='px-2 lg:px-7 pt-5 '>
             <div className='w-full p-4  bg-[#283046] rounded-md'>
