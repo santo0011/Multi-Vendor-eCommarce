@@ -93,6 +93,10 @@ const Register = () => {
                             <div className='text-center text-slate-600 pt-1'>
                                 <p>You have no account ? <Link className='text-blue-500' to='/login'>Login</Link></p>
                             </div>
+                            <div className='text-center text-slate-600 pt-1'>
+                                <p> <a className='text-blue-500' target='_blank' href='http://localhost:3001/login'>Login </a> 
+                                 seller accout</p>
+                            </div>
                         </div>
                         <div className='w-full h-full py-4 pr-4'>
                             <img className='w-full h-[95%]' src={`${base_url}/images/login.jpg`} alt="img" />

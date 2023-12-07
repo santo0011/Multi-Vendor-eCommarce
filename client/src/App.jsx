@@ -30,8 +30,10 @@ const App = () => {
 
 
   useEffect(() => {
-    dispatch(get_card_products(userInfo.id))
-    dispatch(get_wishlist_products(userInfo.id))
+    if (userInfo) {
+      dispatch(get_card_products(userInfo.id))
+      dispatch(get_wishlist_products(userInfo.id))
+    }
   }, [userInfo])
 
   useEffect(() => {

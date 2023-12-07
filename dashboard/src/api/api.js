@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // const local = 'https://multivendorserver.onrender.com';
 
-export const dashboard_url = 'https://multivendorecommarcedashboard.netlify.app';
+export const dashboard_url = 'http://localhost:3001';
 
 const api = axios.create({
     baseURL: 'http://localhost:5000/api'

@@ -44,6 +44,7 @@ class customerAuthController {
         }
     }
 
+    // customer_login
     customer_login = async (req, res) => {
         const { email, password } = req.body;
         try {
@@ -69,6 +70,20 @@ class customerAuthController {
             }
         } catch (error) {
             console.log(error.message)
+        }
+    }
+
+
+    // customer_logout
+    customer_logout = async (req, res) => {
+        try {
+            res.cookie('customerToken', "", {
+                expires: new Date(Date.now()),
+                httpOnly: true
+            });
+            responseReturn(res, 200, { message: "Logout success" })
+        } catch (error) {
+            responseReturn(res, 500, { error: error.message })
         }
     }
 }

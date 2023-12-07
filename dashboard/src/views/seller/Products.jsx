@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Pagination from '../Pagination';
 import Search from '../components/Search';
 import { get_products } from '../../store/Reducers/productReducer';
+import { GiKnightBanner } from "react-icons/gi";
 
 
 const Products = () => {
@@ -24,8 +25,6 @@ const Products = () => {
         dispatch(get_products(obj))
     }, [searchValue, currentPage, parPage])
 
-    console.log('products', products)
-
     return (
         <div className='px-2 lg:px-7 pt-5 '>
             <div className='w-full p-4  bg-[#283046] rounded-md'>
@@ -42,7 +41,7 @@ const Products = () => {
                                 <th scope='col' className='py-3 px-4'>Price</th>
                                 <th scope='col' className='py-3 px-4'>Discount</th>
                                 <th scope='col' className='py-3 px-4'>Stock</th>
-                                <th scope='col' className='py-3 px-4'>Action</th>
+                                <th style={{ textAlign: 'center' }} scope='col' className='py-3 px-4'>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -77,8 +76,10 @@ const Products = () => {
                                             <Link to={`/seller/dashboard/edit-product/${d._id}`} className='p-[6px] bg-yellow-500 rounded hover:shadow-lg hover:shadow-yellow-500/50'><FaEdit /></Link>
                                             <Link className='p-[6px] bg-green-500 rounded hover:shadow-lg hover:shadow-green-500/50'><FaEye /></Link>
                                             <button className='p-[6px] bg-red-500 rounded hover:shadow-lg hover:shadow-red-500/50'><FaTrash /></button>
+                                            <Link to={`/seller/dashboard/add-banner/${d._id}`} title='Add-banner' className='p-[6px] bg-cyan-500 rounded hover:shadow-lg hover:shadow-green-500/50'><GiKnightBanner /></Link>
                                         </div>
                                     </td>
+
                                 </tr>)
                             }
                         </tbody>
@@ -103,3 +104,11 @@ const Products = () => {
 }
 
 export default Products;
+
+/*     {
+        id: 111,
+        title: 'Add Banner',
+        icon: <AiOutlinePlus />,
+        role: 'seller',
+        path: '/seller/dashboard/add-banner'
+    }, */

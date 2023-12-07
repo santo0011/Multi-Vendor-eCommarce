@@ -16,8 +16,6 @@ const Headers = () => {
     const { userInfo } = useSelector(state => state.auth);
     const { card_product_count, wishlist_count } = useSelector(state => state.card);
 
-    // console.log(wishlist_count)
-
 
     const { pathname } = useLocation();
     const [showShidebar, setShowShidebar] = useState(true);

@@ -164,7 +164,7 @@ const Details = () => {
     return (
         <div>
             <Headers />
-            <div className='bg-[url("https://multivendorecommarceclient.netlify.app/images/banner/order.jpg")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
+            <div className='bg-[url("http://localhost:5000/images/banner/order.jpg")] h-[220px] mt-6 bg-cover bg-no-repeat relative bg-left'>
 
                 <div className='absolute left-0 top-0 w-full h-full bg-[#2422228a]'>
                     <div className='w-[85%] md:w-[80%] sm:w-[90%] lg:w-[90%] h-full mx-auto'>

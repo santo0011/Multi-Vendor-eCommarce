@@ -85,6 +85,13 @@ export const allNav = [
         path: '/seller/dashboard/products'
     },
     {
+        id: 111,
+        title: 'All Banner',
+        icon: <RiProductHuntLine />,
+        role: 'seller',
+        path: '/seller/dashboard/banners'
+    },
+    {
         id: 12,
         title: 'Discount Product',
         icon: <RiProductHuntLine />,

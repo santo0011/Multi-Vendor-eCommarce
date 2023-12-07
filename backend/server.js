@@ -12,7 +12,7 @@ const socket = require("socket.io");
 const server = http.createServer(app);
 
 app.use(cors({
-    origin: ['https://multivendorecommarceclient.netlify.app', 'https://multivendorecommarcedashboard.netlify.app', 'http://localhost:3000'],
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
     credentials: true
 }));
 
@@ -173,6 +173,7 @@ app.use('/api/home', require('./routes/home/homeRoutes'));
 app.use('/api/home', require('./routes/order/orderRoutes'));
 app.use('/api', require('./routes/home/cardRoutes'));
 app.use('/api', require('./routes/authRoutes'));
+app.use('/api', require('./routes/bannerRoutes'));
 app.use('/api', require('./routes/home/customerAuthRoutes'));
 app.use('/api', require('./routes/dashboard/categoryRoutes'));
 app.use('/api', require('./routes/dashboard/productRoutes'));

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { AiOutlineMessage, AiOutlinePlus } from 'react-icons/ai';
 import { GrEmoji } from 'react-icons/gr';
+import { FaList } from 'react-icons/fa';
 import { IoSend } from 'react-icons/io5';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -83,18 +84,20 @@ const Chat = () => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" })
     }, [fd_messages])
 
+    const [show, setShow] = useState(false);
+
 
     return (
         <div className='bg-white p-3 rounded-md'>
-            <div className='w-full flex'>
-                <div className='w-[230px]'>
+            <div className='w-full flex relative'>
+                <div className={`w-[230px] md-lg:absolute transition-all bg-white md-lg:h-full ${show ? 'left-[0px]' : '-left-[350px]'} `}>
                     <div className='flex justify-center gap-3 items-center text-slate-600 text-xl h-[50px]'>
                         <span><AiOutlineMessage /></span>
                         <span>Message</span>
                     </div>
                     <div className='w-full flex flex-col text-slate-600 py-4 h-[400px] pr-3'>
                         {
-                            my_friends?.map((f, i) => <Link to={`/dashboard/chat/${f.fdId}`} key={i} className={`flex gap-2 justify-start items-center pl-2 py-[5px]`} >
+                            my_friends?.map((f, i) => <Link onClick={() => setShow(false)} to={`/dashboard/chat/${f.fdId}`} key={i} className={`flex gap-2 justify-start items-center pl-2 py-[5px]`} >
                                 <div className='w-[30px] h-[30px] rounded-full relative'>
                                     {
                                         activeSeller.some(c => c.sellerId === f.fdId) && <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'></div>
@@ -106,17 +109,22 @@ const Chat = () => {
                         }
                     </div>
                 </div>
-                <div className='w-[calc(100%-230px)]'>
+                <div className='w-[calc(100%-230px)] md-lg:w-full'>
                     {
                         currentFd ? <div className='w-full h-full'>
-                            <div className='flex justify-start gap-3 items-center text-slate-600 text-xl h-[50px]'>
-                                <div className='w-[30px] h-[30px] rounded-full relative'>
-                                    {
-                                        activeSeller.some(c => c.sellerId === currentFd.fdId) && <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'></div>
-                                    }
-                                    <img src={`${base_url}/images/user.png`} alt="img" />
+                            <div className='flex justify-between items-center text-slate-600 text-xl h-[50px]'>
+                                <div className='flex gap-2'>
+                                    <div className='w-[30px] h-[30px] rounded-full relative'>
+                                        {
+                                            activeSeller.some(c => c.sellerId === currentFd.fdId) && <div className='w-[10px] h-[10px] rounded-full bg-green-500 absolute right-0 bottom-0'></div>
+                                        }
+                                        <img src={`${base_url}/images/user.png`} alt="img" />
+                                    </div>
+                                    <span>{currentFd.name}</span>
                                 </div>
-                                <span>{currentFd.name}</span>
+                                <div onClick={() => setShow(!show)} className='w-[35px] h-[35px] hidden md-lg:flex cursor-pointer rounded-sm flex justify-center items-center bg-sky-600 text-white'>
+                                    <FaList />
+                                </div>
                             </div>
                             <div className='h-[400px] w-full bg-slate-100 p-3 rounded-md'>
 
@@ -166,7 +174,7 @@ const Chat = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div> : <div className='w-full h-full flex justify-center items-center text-lg ont-bold text-slate-600'>
+                        </div> : <div onClick={() => setShow(true)} className='w-full h-[400px] flex justify-center items-center text-lg ont-bold text-slate-600'>
                             <span>Select seller</span>
                         </div>
                     }
