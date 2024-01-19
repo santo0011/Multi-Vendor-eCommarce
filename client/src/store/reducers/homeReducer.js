@@ -100,6 +100,20 @@ export const get_reviews = createAsyncThunk(
 )
 
 
+// banners-get
+export const banners_get = createAsyncThunk(
+    'product/banners_get',
+    async (_, { fulfillWithValue }) => {
+        try {
+            const { data } = await api.get(`banners-get`);
+            return fulfillWithValue(data)
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+)
+
+
 export const homeReducer = createSlice({
     name: 'home',
     initialState: {
@@ -121,7 +135,8 @@ export const homeReducer = createSlice({
         errorMessage: '',
         totalReview: 0,
         rating_review: [],
-        reviews: []
+        reviews: [],
+        banners: []
     },
     reducers: {
         messageClear: (state, _) => {
@@ -160,6 +175,9 @@ export const homeReducer = createSlice({
             state.totalReview = payload.totalReview
             state.rating_review = payload.rating_review
             state.reviews = payload.reviews
+        },
+        [banners_get.fulfilled]: (state, { payload }) => {
+            state.banners = payload.banners
         }
     }
 });
